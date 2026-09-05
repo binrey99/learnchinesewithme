@@ -1,4 +1,5 @@
 import { supabase } from "./js/config.js";
+import { setupPracticeMenu } from "./js/practice/index.js";
 
 const toast = document.querySelector(".toast");
 let toastTimer;
@@ -137,30 +138,7 @@ practiceToggle.addEventListener("click", () => {
   practiceToggle.setAttribute("aria-expanded", String(isOpen));
 });
 
-document.querySelectorAll("[data-practice]").forEach((option) => {
-  option.addEventListener("click", () => {
-    practiceMenu.classList.remove("open");
-    practiceToggle.setAttribute("aria-expanded", "false");
-    if (option.dataset.practice === "Luyện dịch") {
-      document.querySelector("#sentence-order-screen").hidden = true;
-      document.querySelector("#translation-level-screen").hidden = false;
-      document.querySelector("#translation-level-screen .hsk-level-grid").hidden = false;
-      document.querySelector("#translation-lesson-picker").hidden = true;
-      document.querySelector("#translation-exercise").hidden = true;
-      document.querySelector("main").hidden = true;
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-    if (option.dataset.practice === "Sắp xếp câu") {
-      document.querySelector("#translation-level-screen").hidden = true;
-      document.querySelector("#sentence-order-screen").hidden = false;
-      document.querySelector("main").hidden = true;
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-    showToast(`Đã chọn mục luyện tập: ${option.dataset.practice}.`);
-  });
-});
+setupPracticeMenu(showToast);
 
 document.addEventListener("click", (event) => {
   if (!event.target.closest(".practice-nav-item")) {
