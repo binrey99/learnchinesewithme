@@ -1,7 +1,40 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-const SUPABASE_URL = "https://zrqeokfgspkcxhseemqi.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_BsZFpACz7bXTOEvv-4-nLQ_bmd9waEN";
+async function loadEnvironment() {
+  const apiResponse = await fetch("./api/config", { cache: "no-store" });
+  if (apiResponse.ok) {
+    return apiResponse.json();
+  }
+
+  if (apiResponse.status !== 404) {
+    throw new Error("Không thể tải cấu hình Supabase từ máy chủ.");
+  }
+
+  const localResponse = await fetch("./.env", { cache: "no-store" });
+  if (!localResponse.ok) {
+    throw new Error("Không thể tải file cấu hình .env.");
+  }
+
+  return Object.fromEntries(
+    (await localResponse.text())
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith("#") && line.includes("="))
+      .map((line) => {
+        const separatorIndex = line.indexOf("=");
+        return [line.slice(0, separatorIndex).trim(), line.slice(separatorIndex + 1).trim()];
+      }),
+  );
+}
+
+const environment = await loadEnvironment();
+const SUPABASE_URL = environment.SUPABASE_URL;
+const SUPABASE_PUBLISHABLE_KEY = environment.SUPABASE_PUBLISHABLE_KEY;
+
+if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
+  throw new Error("Hãy điền SUPABASE_URL và SUPABASE_PUBLISHABLE_KEY trong file .env.");
+}
+
 const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 const toast = document.querySelector(".toast");
