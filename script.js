@@ -315,7 +315,7 @@ document.querySelector("#lesson-picker-back").addEventListener("click", () => {
       button.type = "button";
       button.textContent = index + 1;
       const result = translationState.results[`${translationState.direction}-${translationState.lesson}-${index}`];
-      button.className = `${index === translationState.index ? "active " : ""}${result?.isCorrect ? "answered" : ""}`;
+      button.className = `${index === translationState.index ? "active " : ""}${result ? (result.isCorrect ? "answered" : "incorrect") : ""}`;
       button.dataset.questionIndex = String(index);
       container.appendChild(button);
     }
@@ -576,7 +576,7 @@ document.querySelector("#lesson-picker-back").addEventListener("click", () => {
       button.textContent = index + 1;
       const key = `${sentenceOrderState.level}-${sentenceOrderState.lesson}-${index}`;
       const result = sentenceOrderState.results[key];
-      button.className = `${index === sentenceOrderState.index ? "active " : ""}${result?.isCorrect ? "answered" : ""}`;
+      button.className = `${index === sentenceOrderState.index ? "active " : ""}${result ? (result.isCorrect ? "answered" : "incorrect") : ""}`;
       button.dataset.sentenceQuestionIndex = String(index);
       container.appendChild(button);
     }

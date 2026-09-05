@@ -96,3 +96,5 @@
 
 .question-numbers button.answered{background:#39b982!important;border-color:#39b982!important;color:#fff!important}
 .question-numbers button.active.answered{background:#16865b!important;border-color:#16865b!important;color:#fff!important}
+.question-numbers button.incorrect{background:#ed5c5c!important;border-color:#ed5c5c!important;color:#fff!important}
+.question-numbers button.active.incorrect{background:#c93f3f!important;border-color:#c93f3f!important;color:#fff!important}
