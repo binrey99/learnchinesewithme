@@ -93,3 +93,6 @@
 .translation-score{gap:10px;margin-top:14px}
 .translation-score span{padding:10px 12px;border-radius:12px}
 @media(max-width:600px){.translation-question-card{padding:14px 14px 16px;border-radius:18px}.question-toolbar{margin-bottom:8px}.translation-prompt{min-height:105px;padding:15px 10px}.translation-prompt strong{font-size:19px}.translation-prompt span{font-size:23px}.translation-question-card textarea{min-height:105px}.translation-question-actions .primary-button{padding:10px 13px}.translation-score span{font-size:11px}}
+
+.question-numbers button.answered{background:#39b982!important;border-color:#39b982!important;color:#fff!important}
+.question-numbers button.active.answered{background:#16865b!important;border-color:#16865b!important;color:#fff!important}
